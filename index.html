@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Garv Bardia — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0c0f;
+    --bg2: #13151a;
+    --bg3: #1c1f27;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.15);
+    --text: #e8eaf0;
+    --muted: #7a7f8e;
+    --accent: #4f8ef7;
+    --accent2: #7dd3a8;
+    --accent3: #f0a050;
+    --tag-bg: rgba(79,142,247,0.1);
+    --tag-text: #7eb5ff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,12,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 17px;
+    color: var(--text); text-decoration: none;
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 12px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* MAIN LAYOUT */
+  main { max-width: 860px; margin: 0 auto; padding: 0 2rem 6rem; }
+
+  /* HERO */
+  .hero {
+    padding: 120px 0 60px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent2); background: rgba(125,211,168,0.1);
+    border: 1px solid rgba(125,211,168,0.2);
+    padding: 4px 12px; border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 1rem;
+  }
+  .hero h1 .line2 { color: var(--accent); }
+  .hero-sub {
+    color: var(--muted); font-size: 14px; max-width: 520px;
+    line-height: 1.8; margin-bottom: 2rem;
+  }
+  .hero-links { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 20px; border-radius: 8px;
+    font-family: 'DM Mono', monospace; font-size: 12px;
+    text-decoration: none; transition: all 0.2s; cursor: pointer;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff; border: none;
+  }
+  .btn-primary:hover { background: #3a7ae8; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border-hover);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+  .hero-meta {
+    display: flex; gap: 2rem; margin-top: 2.5rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 2px; }
+  .meta-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .meta-value { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  /* SECTIONS */
+  section { margin-bottom: 64px; animation: fadeUp 0.6s ease both; }
+  .section-label {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ABOUT / SUMMARY */
+  .summary-text {
+    color: var(--muted); line-height: 1.9; font-size: 13.5px;
+    max-width: 680px;
+  }
+  .summary-text strong { color: var(--text); font-weight: 500; }
+
+  /* EDUCATION */
+  .edu-grid { display: flex; flex-direction: column; gap: 12px; }
+  .edu-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    transition: border-color 0.2s;
+    gap: 1rem;
+  }
+  .edu-card:hover { border-color: var(--border-hover); }
+  .edu-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; margin-bottom: 3px; }
+  .edu-degree { color: var(--muted); font-size: 12px; }
+  .edu-right { text-align: right; flex-shrink: 0; }
+  .edu-year { font-size: 11px; color: var(--muted); }
+  .edu-score {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 16px; color: var(--accent2);
+  }
+
+  /* PROJECTS */
+  .projects-grid { display: flex; flex-direction: column; gap: 16px; }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 22px 24px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .project-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 10px; gap: 1rem;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px;
+  }
+  .project-badge {
+    font-size: 10px; padding: 3px 10px; border-radius: 100px;
+    letter-spacing: 0.08em; text-transform: uppercase; flex-shrink: 0;
+  }
+  .badge-deployed {
+    background: rgba(125,211,168,0.12); color: var(--accent2);
+    border: 1px solid rgba(125,211,168,0.25);
+  }
+  .badge-progress {
+    background: rgba(240,160,80,0.12); color: var(--accent3);
+    border: 1px solid rgba(240,160,80,0.25);
+  }
+  .project-desc {
+    color: var(--muted); font-size: 13px; line-height: 1.75;
+    margin-bottom: 14px;
+  }
+  .project-bullets { list-style: none; padding: 0; margin-bottom: 16px; }
+  .project-bullets li {
+    color: var(--muted); font-size: 12.5px; line-height: 1.7;
+    padding-left: 16px; position: relative; margin-bottom: 5px;
+  }
+  .project-bullets li::before {
+    content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px;
+  }
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 6px;
+    background: var(--tag-bg); color: var(--tag-text);
+    border: 1px solid rgba(79,142,247,0.15);
+    letter-spacing: 0.03em;
+  }
+
+  /* SKILLS */
+  .skills-grid { display: flex; flex-direction: column; gap: 10px; }
+  .skill-row {
+    display: flex; gap: 12px; align-items: flex-start;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px;
+    transition: border-color 0.2s;
+  }
+  .skill-row:hover { border-color: var(--border-hover); }
+  .skill-cat {
+    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); min-width: 130px; flex-shrink: 0;
+    padding-top: 1px;
+  }
+  .skill-items { color: var(--muted); font-size: 12.5px; line-height: 1.6; }
+
+  /* CERTIFICATIONS */
+  .cert-grid { display: flex; flex-direction: column; gap: 10px; }
+  .cert-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: border-color 0.2s; gap: 1rem;
+  }
+  .cert-card:hover { border-color: var(--border-hover); }
+  .cert-name { font-size: 13px; color: var(--text); }
+  .cert-issuer { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .cert-status {
+    font-size: 10px; padding: 3px 10px; border-radius: 100px;
+    background: rgba(240,160,80,0.1); color: var(--accent3);
+    border: 1px solid rgba(240,160,80,0.2);
+    white-space: nowrap; flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* CONTACT */
+  .contact-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+  .contact-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px;
+    text-decoration: none; color: var(--text);
+    transition: all 0.2s; display: flex; align-items: center; gap: 10px;
+    min-width: 200px;
+  }
+  .contact-card:hover {
+    border-color: var(--accent); color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .contact-icon { font-size: 16px; }
+  .contact-label { font-size: 11px; color: var(--muted); display: block; }
+  .contact-value { font-size: 13px; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 0; text-align: center;
+    color: var(--muted); font-size: 11px; letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.2s; }
+  section:nth-child(4) { animation-delay: 0.3s; }
+  section:nth-child(5) { animation-delay: 0.4s; }
+  section:nth-child(6) { animation-delay: 0.5s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav { padding: 0 1rem; }
+    main { padding: 0 1rem 4rem; }
+    .hero { padding: 90px 0 40px; }
+    .hero h1 { font-size: 2.2rem; }
+    .edu-card { flex-direction: column; }
+    .edu-right { text-align: left; }
+    .project-header { flex-direction: column; }
+    .nav-links { display: none; }
+    .skill-row { flex-direction: column; gap: 6px; }
+    .skill-cat { min-width: unset; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> garv.dev</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-tag">Open to SDE Internships · July 2026</span>
+    <h1>
+      Garv Bardia<br/>
+      <span class="line2">Software Developer.</span>
+    </h1>
+    <p class="hero-sub">
+      B.Tech IT student at MIT Bengaluru building full-stack web apps,
+      blockchain systems, and AI-powered tools. Currently targeting
+      the Autodesk SDE Intern role.
+    </p>
+    <div class="hero-links">
+      <a class="btn btn-primary" href="mailto:garvbardia@gmail.com">Get in touch →</a>
+      <a class="btn btn-outline" href="https://github.com/GarvBardia" target="_blank">GitHub</a>
+      <a class="btn btn-outline" href="https://linkedin.com/in/garvbardia" target="_blank">LinkedIn</a>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">Institution</span>
+        <span class="meta-value">MIT Bengaluru</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Degree</span>
+        <span class="meta-value">B.Tech — IT</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">CGPA</span>
+        <span class="meta-value">7.52 / 10</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Graduating</span>
+        <span class="meta-value">May 2027</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <p class="summary-text">
+      I'm a 2nd-year Information Technology student with hands-on experience building
+      <strong>modular, database-driven applications</strong> and <strong>blockchain-based systems</strong>.
+      I enjoy working across the full stack — from designing RESTful APIs in FastAPI to
+      writing Solidity smart contracts and building React frontends. My current focus is
+      on <strong>software engineering fundamentals</strong>, system design, and shipping
+      real projects that solve real problems.
+    </p>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Education</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div>
+          <div class="edu-name">Manipal Institute of Technology, Bengaluru</div>
+          <div class="edu-degree">B.Tech — Information Technology · 2023–2027</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">7.52</div>
+          <div class="edu-year">CGPA / 10</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-name">St. Joseph's Academy</div>
+          <div class="edu-degree">Class XII (Intermediate) · ICSE · 2022–2023</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">94%</div>
+          <div class="edu-year">Percentage</div>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <div class="edu-name">St. Joseph's Academy</div>
+          <div class="edu-degree">Class X (Secondary) · ICSE · 2020–2021</div>
+        </div>
+        <div class="edu-right">
+          <div class="edu-score">89.6%</div>
+          <div class="edu-year">Percentage</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">AI Marketing Assistant</div>
+          <span class="project-badge badge-progress">In Progress</span>
+        </div>
+        <ul class="project-bullets">
+          <li>Developing a full-stack web app for small businesses to generate social media content, email copy, and ad creatives using the GPT-4 API via a FastAPI backend.</li>
+          <li>Built a RESTful API layer in FastAPI (Python) handling prompt routing, response parsing, and structured JSON output consumed by the React.js frontend.</li>
+          <li>Designed a component-based UI in React enabling users to select content type, tone, and platform — reducing estimated manual content creation effort by 70%.</li>
+        </ul>
+        <div class="tech-tags">
+          <span class="tag">React.js</span>
+          <span class="tag">FastAPI</span>
+          <span class="tag">Python</span>
+          <span class="tag">GPT-4 API</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">JSON</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-title">Supply Chain Tracker</div>
+          <span class="project-badge badge-deployed">Deployed</span>
+        </div>
+        <ul class="project-bullets">
+          <li>Engineered a blockchain-based product lifecycle tracker modeling 5 supply chain stages with tamper-proof, immutable transaction records.</li>
+          <li>Implemented hash-based block linking and event-driven state transitions in Solidity to ensure end-to-end data integrity and real-time status visibility across distributed nodes.</li>
+          <li>Deployed and validated smart contract logic on the Sepolia testnet via Remix IDE, simulating 20+ transactions to verify transparency and consensus.</li>
+        </ul>
+        <div class="tech-tags">
+          <span class="tag">Solidity</span>
+          <span class="tag">Smart Contracts</span>
+          <span class="tag">Remix IDE</span>
+          <span class="tag">Blockchain</span>
+          <span class="tag">Sepolia Testnet</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Technical Skills</div>
+    <div class="skills-grid">
+      <div class="skill-row">
+        <span class="skill-cat">Languages</span>
+        <span class="skill-items">Java, Python, C, C++, JavaScript</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Web & API</span>
+        <span class="skill-items">React.js, FastAPI, HTML, CSS, RESTful APIs, JSON</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Databases</span>
+        <span class="skill-items">MySQL, SQL (Joins, Aggregations, Subqueries, CRUD), PL/SQL</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Core CS</span>
+        <span class="skill-items">Data Structures & Algorithms, OOD, Operating Systems, Computer Networks, DBMS</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Blockchain</span>
+        <span class="skill-items">Solidity, Smart Contracts, Distributed Ledger, Remix IDE</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Software Eng.</span>
+        <span class="skill-items">SDLC, Agile Fundamentals, Modular Design, Unit Testing, Debugging</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Tools</span>
+        <span class="skill-items">Git, GitHub, IntelliJ IDEA, VS Code, Keil uVision</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-cat">Learning</span>
+        <span class="skill-items">System Design, Advanced REST API Design, MongoDB</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certs">
+    <div class="section-label">Certifications</div>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div>
+          <div class="cert-name">Java (Basic)</div>
+          <div class="cert-issuer">HackerRank</div>
+        </div>
+        <span class="cert-status">In Progress</span>
+      </div>
+      <div class="cert-card">
+        <div>
+          <div class="cert-name">Problem Solving (Basic)</div>
+          <div class="cert-issuer">HackerRank</div>
+        </div>
+        <span class="cert-status">In Progress</span>
+      </div>
+      <div class="cert-card">
+        <div>
+          <div class="cert-name">Version Control with Git</div>
+          <div class="cert-issuer">Coursera · Atlassian</div>
+        </div>
+        <span class="cert-status">In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:garvbardia@gmail.com">
+        <span class="contact-icon">✉</span>
+        <div>
+          <span class="contact-label">Email</span>
+          <span class="contact-value">garvbardia@gmail.com</span>
+        </div>
+      </a>
+      <a class="contact-card" href="https://linkedin.com/in/garvbardia" target="_blank">
+        <span class="contact-icon">in</span>
+        <div>
+          <span class="contact-label">LinkedIn</span>
+          <span class="contact-value">linkedin.com/in/garvbardia</span>
+        </div>
+      </a>
+      <a class="contact-card" href="https://github.com/GarvBardia" target="_blank">
+        <span class="contact-icon">&lt;/&gt;</span>
+        <div>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">github.com/GarvBardia</span>
+        </div>
+      </a>
+      <a class="contact-card" href="tel:+919597365310">
+        <span class="contact-icon">☎</span>
+        <div>
+          <span class="contact-label">Phone</span>
+          <span class="contact-value">+91 95973 65310</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Garv Bardia · MIT Bengaluru · B.Tech IT · 2023–2027</p>
+</footer>
+
+</body>
+</html>
